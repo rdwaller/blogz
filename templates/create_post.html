@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>Add a Blog Entry</h1>
+  <form method='post'>
+    <table>
+      <tr>
+        <td>
+          <label for='title'>
+        Title for your new blog:</label>
+        </td>
+        <td>
+          <input type="text" name='blog_title' value='{{ request.form['blog_title'] }}' />
+          {% if request.form['blog_title'] == '' %}
+            <br />
+            <span class='error'>Please enter a blog title.</span>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <label for='entry'>Your new blog:</label>
+        </td>
+        <td>
+          <textarea name='blog_body' rows="4" cols="50">{{ request.form['blog_body'] }}</textarea>
+          {% if request.form['blog_body'] == '' %}
+          <br />
+          <span class='error'>Please enter blog content.</span>
+          {% endif %}
+        </td>
+      </tr> 
+      <tr>
+        <td>
+          <input type="submit" value='Add Entry' />
+        </td>
+      </tr>
+    </table>
+  </form>
+
+
+  <hr />
+
+{% endblock %}
+
