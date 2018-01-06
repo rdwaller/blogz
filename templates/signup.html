@@ -17,7 +17,7 @@
     <tr>
       <td>
         {% if username_error %}
-        <p class='error'>{{username_error}}</p>
+        <span class='error'>{{username_error}}</span>
         {% endif %}
       </td>
     </tr>
@@ -32,7 +32,7 @@
       <tr>
         <td>
           {% if password_error %}
-            <p class='error'>{{password_error}}</p>
+            <span class='error'>{{password_error}}</span>
           {% endif %}
         </td>
       </tr>
@@ -47,7 +47,7 @@
       <tr>
         <td>
           {% if verify_password_error %}
-            <p class='error'>{{verify_password_error}}</p>
+            <span class='error'>{{verify_password_error}}</span>
           {% endif %}
         </td>
       </tr>
@@ -62,7 +62,7 @@
       <tr>
         <td>
             {% if email_error %}
-              <p class='error'>{{email_error}}</p>
+              <span class='error'>{{email_error}}</span>
             {% endif %}
         </td>
       </tr>
