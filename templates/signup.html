@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Signup</h2>
+
+<form action='/signup' method='POST'>
+  <table>
+    <tr>
+      <td>
+        <label for='username'>Username:</label>
+      </td>
+      <td>
+        <input type='text' name='enter_username' value='{{username}}' />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% if username_error %}
+        <p class='error'>{{username_error}}</p>
+        {% endif %}
+      </td>
+    </tr>
+      <tr>
+        <td>
+        <label for='password'>Password:</label>
+        </td>
+        <td>
+          <input type='password' name='enter_password' />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% if password_error %}
+            <p class='error'>{{password_error}}</p>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for='verify_password'>Verify Password:</label>
+        </td>
+        <td>
+          <input type='password' name='verify_password' />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% if verify_password_error %}
+            <p class='error'>{{verify_password_error}}</p>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for='email'>Email (optional):</label>
+        </td>
+        <td>
+            <input type='text' name='enter_email' value='{{email}}' />
+        </td>
+      </tr>
+      <tr>
+        <td>
+            {% if email_error %}
+              <p class='error'>{{email_error}}</p>
+            {% endif %}
+        </td>
+      </tr>
+  </table>
+  <input type='submit' value='Submit' />
+</form>
+
+{% endblock %}

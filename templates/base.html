@@ -5,7 +5,6 @@
         <style>
         h2 {
             font-size: 2.3em;
-            text-align: center;
         }
 
         .error {
@@ -14,10 +13,18 @@
         </style>
     </head>
 <body>
-    <div class='topnav'>
-        <a href='/blog'>Main Blog Page</a>
-        <a href='/newpost'>Add a Blog Entry</a>
-    </div>
+
+    <nav>
+            <ul id="user-account">
+                <li><a href="/login">login</a></li>
+                <li><a href="/logout">logout</a></li>
+            </ul>
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="/blog">all posts</a></li>
+                <li><a href="/blog/newpost">new post</a></li>
+            </ul>
+        </nav>
 
     {% block content %}
     {% endblock %}
