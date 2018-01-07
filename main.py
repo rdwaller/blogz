@@ -27,10 +27,16 @@ class Blog(db.Model):
     body = db.Column(db.String(2500))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, body, user):
+    def __init__(self, title, body, owner):
         self.title = title
         self.body = body
-        self.user = user
+        self.owner = owner
+
+@app.before_request
+def require_login():
+    allowed_routes = ['index', 'list_blogs', 'login', 'signup']
+    if request.endpoint not in allowed_routes and 'user' not in session:
+        return redirect('/login')
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -146,25 +152,19 @@ def signup():
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def create_post():
-
-    #added 'blog_user' request and attribute below, but did not update any forms.
-
+    user = User.query.filter_by(username=session['user']).first()
     if request.method == 'POST':
-        blog_title = request.form['blog_title']
-        blog_body = request.form['blog_body']
-        blog_user = request.form['blog_user']
-
-        if blog_body == '' or blog_title == '':
+        title = request.form['blog_title']
+        body = request.form['blog_body']
+        if body == '' or title == '':
             return render_template('newpost.html', title="Blogz!")
-
-        blog_entry = Blog(blog_title, blog_body, blog_user)
+        else:
+            pass
+        blog_entry = Blog(title, body, user)
         db.session.add(blog_entry)
         db.session.commit()
-
         post_id = str(blog_entry.id)
-
         return redirect('/view_post?id=' + post_id)
-
     else:        
         return render_template('newpost.html', title="Blogz!")
 
