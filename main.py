@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, session
+from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -34,19 +34,26 @@ class Blog(db.Model):
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-  if request.method == 'POST':
-    username = request.form['username']
-    password = request.form['password']
-    user = User.query.filter_by(username=username).first()
-    if user and user.password == password:
-      session['user'] = user
-      return redirect('/newpost')
-    elif user and user.password != password:
-      return redirect('login.html')
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        if not user:
+            flash('User does not exist.')
+            return redirect('/login')
+        elif user and user.password == password:
+            session['user'] = username
+            return redirect('/newpost')
+        elif user and user.password != password:
+            flash('Incorrect password.')
+            return redirect('/login')
     else:
-      return redirect('/login.html')
+        return render_template('login.html')
 
-  return render_template('login.html')
+@app.route('/logout', methods=['POST', 'GET'])
+def logout():
+    del session['user']
+    return redirect('/blog')
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
@@ -122,7 +129,8 @@ def signup():
             else: 
                 return redirect('/signup?username={0}&email={1}&username_error={2}&password_error={3}&verify_password_error={4}&email_error={5}'.format(username, email, username_error, password_error, verify_password_error, email_error))
         else:
-            return redirect('/')
+            flash('Username already exists.')
+            return redirect('/signup')
     else:
         if request.args.get('username') == None:
             username = ''
