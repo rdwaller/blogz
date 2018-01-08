@@ -3,13 +3,21 @@
 {% block content %}
 
   {% if blogs|length == 0 %}
+    <p>No blogs</p>
 
-  <p>No blogs</p>
+  {% elif username %}
+    {% for user_blogs in user_blogs %}
+      <h1><a href='/view_post?id={{ user_blogs.id }}'>{{ user_blogs.title }}</a></h1>
+      <p>{{ user_blogs.body }} </p>
+      <p>Written by <a href='/blog?username={{ user_blogs.username }}'>{{ user_blogs.username }}</a></p>
+      <hr />
+    {% endfor %}
 
   {% else %}
     {% for blog in blogs %}
       <h1><a href='/view_post?id={{ blog.id }}'>{{ blog.title }}</a></h1>
-      <p>{{ blog.body }}</p>
+      <p>{{ blog.body }} </p>
+      <p>Written by <a href='/blog?username={{ blog.username }}'>{{ blog.username }}</a></p>
       <hr />
     {% endfor %}
   {% endif %}

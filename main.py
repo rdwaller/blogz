@@ -25,12 +25,12 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(125))
     body = db.Column(db.String(2500))
-    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    username = db.Column(db.String(120), db.ForeignKey('user.username'))
 
-    def __init__(self, title, body, owner):
+    def __init__(self, title, body, user):
         self.title = title
         self.body = body
-        self.owner = owner
+        self.user = user
 
 @app.before_request
 def require_login():
@@ -172,8 +172,10 @@ def create_post():
 def list_blogs():
 
     blogs = Blog.query.all()
+    username = request.args.get('username')
+    user_blogs = Blog.query.filter_by(username=username).all()
 
-    return render_template('blog.html',title="Bloz!", blogs=blogs)
+    return render_template('blog.html',title="Blogz!", blogs=blogs, username=username, user_blogs=user_blogs)
 
 @app.route('/view_post', methods=['POST', 'GET'])
  
@@ -182,6 +184,12 @@ def show_post():
     post = Blog.query.get(post_id)
 
     return render_template('view_post.html', title="Blogz!", post=post)
+
+@app.route('/')
+def show_users():
+    users = User.query.all()
+
+    return render_template('index.html', title="Blogz!", users=users)
 
 if __name__ == '__main__':
   app.run()
