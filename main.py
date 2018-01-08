@@ -186,7 +186,7 @@ def show_post():
     return render_template('view_post.html', title="Blogz!", post=post)
 
 @app.route('/')
-def show_users():
+def index():
     users = User.query.all()
 
     return render_template('index.html', title="Blogz!", users=users)

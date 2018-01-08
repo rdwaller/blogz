@@ -1,0 +1,14 @@
+/* style.css */
+
+h2 {
+  font-size: 2.3em;
+}
+
+nav {
+  display: inline;
+}
+
+.error {
+  color: red;
+  font-size: 1.5em;
+}

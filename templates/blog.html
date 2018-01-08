@@ -6,6 +6,7 @@
     <p>No blogs</p>
 
   {% elif username %}
+    <h1>Posts by {{ username }}:</h1>
     {% for user_blogs in user_blogs %}
       <h1><a href='/view_post?id={{ user_blogs.id }}'>{{ user_blogs.title }}</a></h1>
       <p>{{ user_blogs.body }} </p>
@@ -14,6 +15,7 @@
     {% endfor %}
 
   {% else %}
+    <h1>Blog posts:</h1>
     {% for blog in blogs %}
       <h1><a href='/view_post?id={{ blog.id }}'>{{ blog.title }}</a></h1>
       <p>{{ blog.body }} </p>
