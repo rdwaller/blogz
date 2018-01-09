@@ -22,34 +22,33 @@
                 display: table-cell;
             }
 
-            .mai_-menu ul li a { 
+            .main_menu ul li a { 
                 text-align: center;            
             }
-
         </style>
     </head>
-<body>
+    <body>
 
-    <nav class='main_menu'>
-        <ul>
-            <li><a href='/'>home</a></li>
-            <li><a href='/blog'>all posts</a></li>
-            <li><a href='/newpost'>new post</a></li>
-            <li><a href='/login'>login</a></li>
-            <li><a href='/logout'>logout</a></li>
-        </ul>
-    </nav>
+        <nav class='main_menu'>
+            <ul>
+                <li><a href='/'>home</a></li>
+                <li><a href='/blog'>all posts</a></li>
+                <li><a href='/newpost'>new post</a></li>
+                <li><a href='/login'>login</a></li>
+                <li><a href='/logout'>logout</a></li>
+            </ul>
+        </nav>
 
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        <ul class='error'>
-            {% for category,message in messages %}
-            <li>{{message}}</li>
-            {% endfor %}
-        </ul>
-    {% endwith %}
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            <ul class='error'>
+                {% for category,message in messages %}
+                <li>{{message}}</li>
+                {% endfor %}
+            </ul>
+        {% endwith %}
 
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+        {% endblock %}
 
-</body>
+    </body>
 </html>
